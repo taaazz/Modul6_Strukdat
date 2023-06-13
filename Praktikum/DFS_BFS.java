@@ -22,29 +22,41 @@ class Graph {
         adj[src].add(dest);
     }
 
+    /**
+     *  fungsi DFS akan mengunjungi semua simpul yang terhubung dengan simpul awal secara rekursif,
+     *  dengan cara melanjutkan ke simpul-simpul yang belum dikunjungi secara berurutan.
+     *  Hasilnya adalah pencetakan urutan traversal DFS dari simpul awal.
+     * @param vertex
+     */
     void DFS(int vertex) {
-        visited[vertex] = true;
+        visited[vertex] = true; //Menandai simpul vertex telah dikunjungi
         System.out.print(vertex + " ");
 
-        Iterator<Integer> it = adj[vertex].listIterator();
+        Iterator<Integer> it = adj[vertex].listIterator(); //mengiterasi melalui daftar (adjacency list) simpul-simpul terhubung dengan simpul vertex.
         while (it.hasNext()) {
-            int n = it.next();
+            int n = it.next(); //Mengambil simpul berikutnya dari iterator.
             if (!visited[n])
                 DFS(n);
         }
     }
 
+    /**
+     * fungsi BFS akan melakukan traversal BFS pada graph,
+     * yaitu mengunjungi semua simpul yang terhubung dengan simpul awal secara berurutan mulai dari simpul terdekat hingga simpul terjauh.
+     * Hasilnya adalah pencetakan urutan traversal BFS dari simpul awal.
+     * @param n
+     */
     void BFS(int n) {
-        boolean nodes[] = new boolean[node];
+        boolean nodes[] = new boolean[node]; // digunakan untuk melacak simpul mana yang sudah dikunjungi selama traversal BFS
         int a = 0;
         nodes[n] = true;
         que.add(n);
         while (!que.isEmpty()) {
-            n = que.poll();
+            n = que.poll(); //mengambil simpul pertama dari queue dan menghapus antrian
             System.out.print(n + " ");
             for (int i = 0; i < adj[n].size(); i++) {
-                a = adj[n].get(i);
-                if (!nodes[a]) {
+                a = adj[n].get(i); // mengambil simpul terhubung dengan simpul n di adjacency list
+                if (!nodes[a]) { // Memeriksa apakah simpul a belum dikunjungi.
                     nodes[a] = true;
                     que.add(a);
                 }
